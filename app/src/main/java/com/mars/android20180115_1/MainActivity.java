@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -16,15 +17,21 @@ import com.android.volley.toolbox.Volley;
 
 //用volley下載圖片
 public class MainActivity extends AppCompatActivity {
-
+    ProgressBar progressBar;
+    ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        img = (ImageView) findViewById(R.id.imageView);
     }
     public void click1(View v)
     {
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        //一開始設定看不見進度條
+        progressBar.setVisibility(View.VISIBLE);
+        img.setVisibility(View.INVISIBLE);
         //七個參數
         /*
         可以看到，ImageRequest的构造函数接收六个参数，
@@ -42,10 +49,14 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Bitmap response) {
                         ImageView img = (ImageView) findViewById(R.id.imageView);
                         img.setImageBitmap(response);
+                        //完成下載後才顯示
+                        progressBar.setVisibility(View.INVISIBLE);
+                        img.setVisibility(View.VISIBLE);
                     }
                 }, 0, 0, ImageView.ScaleType.CENTER, Bitmap.Config.RGB_565, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
 
             }
         }) ;
