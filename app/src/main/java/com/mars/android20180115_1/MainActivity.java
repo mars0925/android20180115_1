@@ -29,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
     public void click1(View v)
     {
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-        //一開始設定看不見進度條
+        //一開始要設定看不見進度條 layout那邊設定
+        //按下按鈕後看見
         progressBar.setVisibility(View.VISIBLE);
+        //隱藏圖片ˇ
         img.setVisibility(View.INVISIBLE);
         //七個參數
         /*
